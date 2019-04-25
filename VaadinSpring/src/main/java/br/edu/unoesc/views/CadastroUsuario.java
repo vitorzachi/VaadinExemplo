@@ -4,6 +4,8 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import br.edu.unoesc.componentes.CadastroUsuarioForm;
+
 
 @Route("cadastro")
 @HtmlImport("frontend://styles/tema.html")
