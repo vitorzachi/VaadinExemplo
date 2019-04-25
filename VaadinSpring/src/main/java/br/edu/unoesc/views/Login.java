@@ -1,5 +1,7 @@
 package br.edu.unoesc.views;
 
+import org.springframework.boot.SpringBootConfiguration;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.icon.Icon;
@@ -9,7 +11,8 @@ import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("login")
+@SpringBootConfiguration
+@Route("")
 @HtmlImport("frontend://styles/tema.html")
 public class Login extends VerticalLayout{
 
@@ -23,7 +26,7 @@ public class Login extends VerticalLayout{
 		login.setI18n(createPortugueseI18n());
 
 		login.addLoginListener( e -> {
-			
+			login.getUI().ifPresent(ui -> ui.navigate("menu"));
 		});
 		
 		login.addForgotPasswordListener(e ->{
@@ -36,6 +39,10 @@ public class Login extends VerticalLayout{
 		botao.setIcon(new Icon(VaadinIcon.SIGN_IN));
 		botao.setText("Cadastrar-se");
 		add(login, botao);
+		
+		botao.addClickListener(e ->{
+        	botao.getUI().ifPresent(ui -> ui.navigate("cadastroUsuario"));
+		});
 		
 	}
 

@@ -1,9 +1,14 @@
 package br.edu.unoesc.views;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
@@ -22,33 +27,35 @@ public class Menu extends VerticalLayout{
 		
 		HorizontalLayout menu = new HorizontalLayout(); 
 		
-		Tab tab1 = new Tab("View 1");		
-//		Div d = new View1();
-
-		Tab tab2 = new Tab("View 2");
-//		Div d2 = new View2();
+		Tab principal = new Tab("Página principal");
+		Div pgPrincipal = new PaginaPrincipal().pagina();
 		
-		menu.add(new Icon(VaadinIcon.ANGLE_LEFT));
-		menu.setWidth("100%");
+		Tab addSafra = new Tab("Adicionar safra");		
+		Div pgAddSafra = new AdicionarSafra().pagina();
+		pgAddSafra.setVisible(false);
 		
-		Tabs tabs = new Tabs(tab1, tab2);
+		Map<Tab, Component> tabsToPages = new HashMap<>();
+		tabsToPages.put(principal, pgPrincipal);
+		tabsToPages.put(addSafra, pgAddSafra);
+		
+		Tabs tabs = new Tabs(principal, addSafra);
 		tabs.setWidth("100%");
+		tabs.setFlexGrowForEnclosedTabs(3);
+		Div content = new Div(pgPrincipal,pgAddSafra);
 		
-		Div content = new PaginaPrincipal().pagina();
+		tabs.addSelectedChangeListener(event -> {
+		    pgPrincipal.setVisible(false);
+		    pgAddSafra.setVisible(false);
+		    
+		    Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+		    selectedPage.setVisible(true);
+
+		});
+		
+		
+		menu.setWidth("100%");
 		menu.add(tabs);
 		add(menu, content);
-		
-//		tabs.addSelectedChangeListener(event -> {
-//			
-//			Tab t = tabs.getSelectedTab();
-//			if(t.equals(tab1)) {
-////				content.remove(d2);
-////				content.add(d);
-//			}if(t.equals(tab2)) {
-////				content.remove(d);
-////				content.add(d2);
-//			}
-//		});
 		
 		
 

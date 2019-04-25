@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 import br.edu.unoesc.componentes.CadastroUsuarioForm;
 
 
-@Route("cadastro")
+@Route("cadastroUsuario")
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuario extends VerticalLayout{
 	
