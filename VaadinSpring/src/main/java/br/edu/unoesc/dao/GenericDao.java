@@ -10,6 +10,8 @@ public abstract class GenericDao<T> extends Conexao implements CrudDao<T> {
 	public void inserir(T dado) {
 		conectar();
 		try {
+			et = em.getTransaction();
+			et.begin();
 			em.persist(dado);
 			et.commit();
 		} catch (Exception e) {
@@ -30,7 +32,6 @@ public abstract class GenericDao<T> extends Conexao implements CrudDao<T> {
 			e.printStackTrace();
 			return null;
 		} finally {
-			et.commit();
 			desconectar();
 		}
 	}
@@ -45,7 +46,6 @@ public abstract class GenericDao<T> extends Conexao implements CrudDao<T> {
 			return null;
 		}
 		finally {
-			et.commit();
 			desconectar();
 		}
 	}
@@ -54,6 +54,8 @@ public abstract class GenericDao<T> extends Conexao implements CrudDao<T> {
 	public void alterar(T dado) {
 		conectar();
 		try {
+			et = em.getTransaction();
+			et.begin();
 			em.merge(dado);
 			et.commit();
 		} catch (Exception e) {
@@ -68,6 +70,8 @@ public abstract class GenericDao<T> extends Conexao implements CrudDao<T> {
 	public void remover(Class<T> classe, Long cod) {
 		conectar();
 		try {
+			et = em.getTransaction();
+			et.begin();
 			em.remove(em.find(classe, cod));
 			et.commit();
 		} catch (Exception e) {

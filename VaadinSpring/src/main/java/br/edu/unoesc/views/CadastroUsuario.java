@@ -12,7 +12,7 @@ import br.edu.unoesc.componentes.CadastroUsuarioForm;
 public class CadastroUsuario extends VerticalLayout{
 	
 	private static final long serialVersionUID = 7072697725845935565L;
-
+	
 	public CadastroUsuario(){
 		add(new H2("Cadastro de Usuário"), new CadastroUsuarioForm().formulario());
 		
