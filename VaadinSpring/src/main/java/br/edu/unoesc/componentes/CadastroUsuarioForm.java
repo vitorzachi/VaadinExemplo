@@ -17,7 +17,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
-import br.edu.unoesc.dao.UsuarioRepository;
+import br.edu.unoesc.dao.UsuarioDao;
 import br.edu.unoesc.model.Usuario;
 
 
@@ -25,7 +25,7 @@ import br.edu.unoesc.model.Usuario;
 public class CadastroUsuarioForm {
 	
 	@Autowired
-	private UsuarioRepository dao; 
+	private UsuarioDao dao; 
 
 	public Div formulario() {
 		
@@ -85,7 +85,7 @@ public class CadastroUsuarioForm {
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
 				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				dao.save(usuario);
+				dao.inserir(usuario);
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
