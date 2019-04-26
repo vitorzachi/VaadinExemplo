@@ -3,6 +3,8 @@ package br.edu.unoesc.componentes;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -15,12 +17,15 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
-import br.edu.unoesc.dao.UsuarioJDBC;
+import br.edu.unoesc.dao.UsuarioRepository;
 import br.edu.unoesc.model.Usuario;
 
 
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuarioForm {
+	
+	@Autowired
+	private UsuarioRepository dao; 
 
 	public Div formulario() {
 		
@@ -74,14 +79,13 @@ public class CadastroUsuarioForm {
 		
 		salvar.addClickListener(e ->{
 			if(senha.isEmpty() || senha.getValue().contentEquals(confirmacaoSenha.getValue())) {
-				UsuarioJDBC jdbc = new UsuarioJDBC();
 				Usuario usuario = new Usuario();
 				usuario.setNome(nome.getValue());
 				usuario.setSobrenome(sobrenome.getValue());
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
 				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				jdbc.inserir(usuario);
+				dao.save(usuario);
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
