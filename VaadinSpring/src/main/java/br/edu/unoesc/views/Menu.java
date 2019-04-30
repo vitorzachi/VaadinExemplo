@@ -2,9 +2,6 @@ package br.edu.unoesc.views;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -34,18 +31,25 @@ public class Menu extends VerticalLayout{
 		Div pgAddSafra = new AdicionarSafra().pagina();
 		pgAddSafra.setVisible(false);
 		
+		Tab tipoSafra = new Tab("Tipo de safra");		
+		Div pgTipoSafra = new TipoSafra().pagina();
+		pgTipoSafra.setVisible(false);
+		
 		Map<Tab, Component> tabsToPages = new HashMap<>();
 		tabsToPages.put(principal, pgPrincipal);
 		tabsToPages.put(addSafra, pgAddSafra);
+		tabsToPages.put(tipoSafra, pgTipoSafra);
 		
-		Tabs tabs = new Tabs(principal, addSafra);
+		Tabs tabs = new Tabs(principal, addSafra, tipoSafra);
 		tabs.setWidth("100%");
 		tabs.setFlexGrowForEnclosedTabs(3);
-		Div content = new Div(pgPrincipal,pgAddSafra);
+		Div content = new Div(pgPrincipal,pgAddSafra, pgTipoSafra);
+		content.setWidthFull();
 		
 		tabs.addSelectedChangeListener(event -> {
 		    pgPrincipal.setVisible(false);
 		    pgAddSafra.setVisible(false);
+		    pgTipoSafra.setVisible(false);
 		    
 		    Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
 		    selectedPage.setVisible(true);
