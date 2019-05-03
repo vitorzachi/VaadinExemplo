@@ -19,46 +19,25 @@ public class TipoSafraForm {
 	
 	private boolean editando = false;
 	
-	List<TipoSafra> tipo = new ArrayList<>();
+	private List<TipoSafra> tipo = new ArrayList<>();
+	private TextField nome = new TextField();
+	
+	private Div d = new Div();
+	private FormLayout form = new FormLayout();
+	private Button salvar = new Button("Salvar");
+	private Button limpar = new Button("Limpar");
+	private Button novo = new Button("Novo");
+
+	private Grid<TipoSafra> grid = new Grid<>();
 
 	public Div formulario() {
-		Div d = new Div();
-		
-		FormLayout form = new FormLayout();
-		
-		TextField nome = new TextField();
-		nome.setPlaceholder("nome da safra");
-		nome.setAutofocus(true);
-		nome.setValueChangeMode(ValueChangeMode.EAGER);
-		
-		Button salvar = new Button("Salvar");
-		salvar.setThemeName("primary");
-		Button limpar = new Button("Limpar");
-		limpar.setThemeName("secondary");
-
-		// adicionando descricaos nos campos do formulario
-		form.addFormItem(nome, "Nome:");
-		
-		// campos required
-		nome.setRequiredIndicatorVisible(true);
+		criar();
 		
 		// Button bar
 		HorizontalLayout actions = new HorizontalLayout();
-		actions.add(salvar, limpar);
+		actions.add(salvar, limpar, novo);
 		
-		Grid<TipoSafra> grid = new Grid<>();
-		grid.setItems(tipo);
-		grid.addColumn(TipoSafra::getCodigo).setHeader("Codigo");
-		grid.addColumn(TipoSafra::getNome).setHeader("Nome");
-		
-		grid.addComponentColumn(item -> createRemoveButton(grid, item))
-        .setHeader("Remover Item");
-		
-		grid.addComponentColumn(item -> createEditButton(grid, item))
-        .setHeader("Editar Item");
-
-		grid.setSelectionMode(Grid.SelectionMode.NONE);
-		
+		tabela();	
 		
 		salvar.addClickListener(e ->{
 			if(editando == true) {
@@ -78,14 +57,50 @@ public class TipoSafraForm {
 			nome.clear();
 		});
 		
+		novo.addClickListener(e ->{
+			editando = false;
+			nome.clear();
+			nome.focus();
+		});
 		
 		
 		d.add(form, actions, grid);
 		return d;
 	}
 	
+	private void criar() {
+		nome.setPlaceholder("nome da safra");
+		nome.setAutofocus(true);
+		nome.setValueChangeMode(ValueChangeMode.EAGER);
+		
+		salvar.setThemeName("primary");
+		limpar.setThemeName("secondary");
+		novo.setThemeName("secondary");
+
+		// adicionando descricaos nos campos do formulario
+		form.addFormItem(nome, "Nome:");
+		
+		// campos required
+		nome.setRequiredIndicatorVisible(true);
+	}
+	
+	private void tabela() {
+		grid.setItems(tipo);
+		grid.addColumn(TipoSafra::getCodigo).setHeader("Codigo");
+		grid.addColumn(TipoSafra::getNome).setHeader("Nome");
+		
+		grid.addComponentColumn(item -> createRemoveButton(grid, item))
+        .setHeader("Remover Item");
+		
+		grid.addComponentColumn(item -> createEditButton(grid, item))
+        .setHeader("Editar Item");
+
+		grid.setSelectionMode(Grid.SelectionMode.NONE);
+	}
+	
 	private Button createEditButton(Grid<TipoSafra> grid, TipoSafra item) {
 	    Button button = new Button("Editar", clickEvent -> {
+	    	nome.setValue(item.getNome());
 	    	editando = true;	    	
 	    });
 	    return button;
@@ -94,12 +109,16 @@ public class TipoSafraForm {
 	private Button createRemoveButton(Grid<TipoSafra> grid, TipoSafra item) {
 	    Button button = new Button("Excluir", clickEvent -> {
 	    	// Exclui tipo de safra
+	    	// atualiza tablela
 	    	
-//	        ListDataProvider<Person> dataProvider = (ListDataProvider<Person>) grid
+	    	
+//	        ListDataProvider<TipoSafra> dataProvider = (ListDataProvider<TipoSafra>) grid
 //	                .getDataProvider();
-//	        dataProvider.getItems().remove(item);
+//	        dataProvider.getItems().;
 //	        dataProvider.refreshAll();
 	    });
 	    return button;
 	}
+	
+	
 }

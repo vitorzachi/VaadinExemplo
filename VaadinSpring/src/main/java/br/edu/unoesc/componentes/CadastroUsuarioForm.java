@@ -27,51 +27,22 @@ public class CadastroUsuarioForm {
 	@Autowired
 	private UsuarioDao dao; 
 
+	private Div d = new Div();
+	private FormLayout form = new FormLayout();
+	private TextField nome = new TextField();
+	private TextField sobrenome = new TextField();
+	private EmailField email = new EmailField();
+	private PasswordField senha = new PasswordField();
+	private PasswordField confirmacaoSenha = new PasswordField();
+	private DatePicker nascimento = new DatePicker();
+	private Button salvar = new Button("Salvar");
+	private Button limpar = new Button("Limpar todos os campos");
+
 	public Div formulario() {
 		
-		Div d = new Div();
-		
-		FormLayout form = new FormLayout();
-		
-		TextField nome = new TextField();
-		nome.setPlaceholder("Primeiro nome");
-		nome.setAutofocus(true);
-		nome.setValueChangeMode(ValueChangeMode.EAGER);
-		TextField sobrenome = new TextField();
-		sobrenome.setPlaceholder("Segundo nome");
-		sobrenome.setValueChangeMode(ValueChangeMode.EAGER);
-		EmailField email = new EmailField();
-		email.setPlaceholder("nome@exemplo.com");
-		email.setValueChangeMode(ValueChangeMode.EAGER);
-		PasswordField senha = new PasswordField();
-		senha.setPlaceholder("Senha de acesso");
-		senha.setValueChangeMode(ValueChangeMode.EAGER);
-		PasswordField confirmacaoSenha = new PasswordField();
-		confirmacaoSenha.setPlaceholder("Confirmação da senha");
-		confirmacaoSenha.setValueChangeMode(ValueChangeMode.EAGER);
-		DatePicker nascimento = new DatePicker();
-		nascimento.setPlaceholder("Nascimento");
-		
-		Button salvar = new Button("Salvar");
-		salvar.setThemeName("primary");
-		Button limpar = new Button("Limpar todos os campos");
-		limpar.setThemeName("secondary");
-
-		// adicionando nomes nos campos do formulario
-		form.addFormItem(nome, "Nome: ");
-		form.addFormItem(sobrenome, "Sobrenome: ");		
-		form.addFormItem(email, "E-mail: ");
-		form.addFormItem(nascimento, "Data de Nascimento");
-		form.addFormItem(senha, "Senha: ");
-		form.addFormItem(confirmacaoSenha, "Confirme sua senha: ");
-		
-		// campos required
-		nome.setRequiredIndicatorVisible(true);
-		sobrenome.setRequiredIndicatorVisible(true);
-		email.setRequiredIndicatorVisible(true);
-		senha.setRequiredIndicatorVisible(true);
-		confirmacaoSenha.setRequiredIndicatorVisible(true);
-		nascimento.setRequiredIndicatorVisible(true);
+		criandoEstrutura();
+		criarFormulario();
+		camposObrigatorios();
 		
 		// Button bar
 		HorizontalLayout actions = new HorizontalLayout();
@@ -96,15 +67,70 @@ public class CadastroUsuarioForm {
 		});
 		
 		limpar.addClickListener(event -> {
-			nome.clear();
-			sobrenome.clear();
-			email.clear();
-			senha.clear();
-			confirmacaoSenha.clear();
-			nascimento.clear();
+			limpar();
 		});
 		
 		d.add(form, actions);
 		return d;
+	}
+	
+	private void limpar() {
+		nome.clear();
+		sobrenome.clear();
+		email.clear();
+		senha.clear();
+		confirmacaoSenha.clear();
+		nascimento.clear();
+	}
+	
+	private void camposObrigatorios() {
+		// campos required
+		nome.setRequiredIndicatorVisible(true);
+		sobrenome.setRequiredIndicatorVisible(true);
+		email.setRequiredIndicatorVisible(true);
+		senha.setRequiredIndicatorVisible(true);
+		confirmacaoSenha.setRequiredIndicatorVisible(true);
+		nascimento.setRequiredIndicatorVisible(true);
+	}
+	
+	private void criandoEstrutura() {
+		nome.setPlaceholder("Primeiro nome");
+		nome.setAutofocus(true);
+		nome.setValueChangeMode(ValueChangeMode.EAGER);
+		sobrenome.setPlaceholder("Segundo nome");
+		sobrenome.setValueChangeMode(ValueChangeMode.EAGER);
+		email.setPlaceholder("nome@exemplo.com");
+		email.setValueChangeMode(ValueChangeMode.EAGER);
+		senha.setPlaceholder("Senha de acesso");
+		senha.setValueChangeMode(ValueChangeMode.EAGER);
+		confirmacaoSenha.setPlaceholder("Confirmação da senha");
+		confirmacaoSenha.setValueChangeMode(ValueChangeMode.EAGER);
+		nascimento.setPlaceholder("Nascimento");
+//		nascimento.setI18n(
+//		        new DatePickerI18n().setWeek("viikko").setCalendar("kalenteri")
+//		                .setClear("tyhjennä").setToday("tänään")
+//		                .setCancel("peruuta").setFirstDayOfWeek(1)
+//		                .setMonthNames(Arrays.asList("tammiku", "helmikuu",
+//		                        "maaliskuu", "huhtikuu", "toukokuu", "kesäkuu",
+//		                        "heinäkuu", "elokuu", "syyskuu", "lokakuu",
+//		                        "marraskuu", "joulukuu")).setWeekdays(
+//		                Arrays.asList("sunnuntai", "maanantai", "tiistai",
+//		                        "keskiviikko", "torstai", "perjantai",
+//		                        "lauantai")).setWeekdaysShort(
+//		                Arrays.asList("su", "ma", "ti", "ke", "to", "pe",
+//		                        "la")));
+		
+		salvar.setThemeName("primary");
+		limpar.setThemeName("secondary");
+	}
+	
+	private void criarFormulario() {
+		// adicionando nomes nos campos do formulario
+		form.addFormItem(nome, "Nome: ");
+		form.addFormItem(sobrenome, "Sobrenome: ");		
+		form.addFormItem(email, "E-mail: ");
+		form.addFormItem(nascimento, "Data de Nascimento");
+		form.addFormItem(senha, "Senha: ");
+		form.addFormItem(confirmacaoSenha, "Confirme sua senha: ");
 	}
 }
