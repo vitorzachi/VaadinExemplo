@@ -1,12 +1,16 @@
 package br.edu.unoesc.componentes;
 
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -37,6 +41,7 @@ public class CadastroUsuarioForm {
 	private DatePicker nascimento = new DatePicker();
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
+
 
 	public Div formulario() {
 		
@@ -106,25 +111,29 @@ public class CadastroUsuarioForm {
 		confirmacaoSenha.setPlaceholder("Confirmação da senha");
 		confirmacaoSenha.setValueChangeMode(ValueChangeMode.EAGER);
 		nascimento.setPlaceholder("Nascimento");
-//		nascimento.setI18n(
-//		        new DatePickerI18n().setWeek("viikko").setCalendar("kalenteri")
-//		                .setClear("tyhjennä").setToday("tänään")
-//		                .setCancel("peruuta").setFirstDayOfWeek(1)
-//		                .setMonthNames(Arrays.asList("tammiku", "helmikuu",
-//		                        "maaliskuu", "huhtikuu", "toukokuu", "kesäkuu",
-//		                        "heinäkuu", "elokuu", "syyskuu", "lokakuu",
-//		                        "marraskuu", "joulukuu")).setWeekdays(
-//		                Arrays.asList("sunnuntai", "maanantai", "tiistai",
-//		                        "keskiviikko", "torstai", "perjantai",
-//		                        "lauantai")).setWeekdaysShort(
-//		                Arrays.asList("su", "ma", "ti", "ke", "to", "pe",
-//		                        "la")));
+		nascimento.setLocale(new Locale("br"));
+		
+		nascimento.setI18n(
+		        new DatePickerI18n()
+		        .setWeek("semana").setCalendar("Calendário")
+		                .setClear("Limpar").setToday("Hoje")
+		                .setCancel("cancelar").setFirstDayOfWeek(1)
+		                .setMonthNames(Arrays.asList("Janeiro", "Fevereiro",
+		                        "Março", "Abril", "Maio", "Junho",
+		                        "Julho", "Agosto", "Setembro", "Outubro",
+		                        "Novembro", "Dezembro")).setWeekdays(
+		                Arrays.asList("Domingo", "Segunda-feira", "Terça-feira",
+		                        "Quarta-feira", "Quinta-feira", "Sexta-feira",
+		                        "Sábado")).setWeekdaysShort(
+		                Arrays.asList("dom", "seg", "ter", "qua", "qui", "sex",
+		                        "sab")));
 		
 		salvar.setThemeName("primary");
 		limpar.setThemeName("secondary");
 	}
 	
 	private void criarFormulario() {
+
 		// adicionando nomes nos campos do formulario
 		form.addFormItem(nome, "Nome: ");
 		form.addFormItem(sobrenome, "Sobrenome: ");		
