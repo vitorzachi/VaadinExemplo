@@ -6,6 +6,7 @@ import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
@@ -20,7 +21,7 @@ public class AdicionarSafraForm {
 	private ComboBox<TipoSafra> tipo = new ComboBox<>();
 	private TextField tamanhoPlantacao = new TextField();
 	private TextField tipoSemente = new TextField();
-	private TextField observacao = new TextField();
+	private TextArea observacao = new TextArea();
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
 	
@@ -61,9 +62,8 @@ public class AdicionarSafraForm {
 		
 		tipoSemente.setPlaceholder("Identificação da semente (marca)");
 		tipoSemente.setValueChangeMode(ValueChangeMode.EAGER);
-		
-		
 		tipoSemente.setPlaceholder("Informações extras");
+
 		observacao.setValueChangeMode(ValueChangeMode.EAGER);
 		
 		// adicionando descricaos nos campos do formulario

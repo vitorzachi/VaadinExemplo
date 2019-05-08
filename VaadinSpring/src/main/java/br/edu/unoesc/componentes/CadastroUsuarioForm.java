@@ -51,6 +51,7 @@ public class CadastroUsuarioForm {
 		
 		// Button bar
 		HorizontalLayout actions = new HorizontalLayout();
+		actions.setSpacing(true);
 		actions.add(salvar, limpar);
 		
 		salvar.addClickListener(e ->{
