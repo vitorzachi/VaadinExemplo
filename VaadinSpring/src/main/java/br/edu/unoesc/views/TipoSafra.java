@@ -6,7 +6,6 @@ import com.vaadin.flow.component.html.H2;
 
 import br.edu.unoesc.componentes.TipoSafraForm;
 
-
 @HtmlImport("frontend://styles/tema.html")
 public class TipoSafra {
 
