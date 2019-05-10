@@ -63,8 +63,6 @@ public class CadastroUsuarioForm {
 				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				System.out.println(usuario.toString());
 				
-				this.dao.findAll();
-				
 				this.dao.save(usuario);
 				
 				
