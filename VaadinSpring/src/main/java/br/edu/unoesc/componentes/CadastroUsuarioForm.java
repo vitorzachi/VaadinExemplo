@@ -1,16 +1,15 @@
 package br.edu.unoesc.componentes;
 
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -22,8 +21,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
 import br.edu.unoesc.dao.UsuarioDao;
+import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
-
 
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuarioForm {
@@ -62,7 +61,12 @@ public class CadastroUsuarioForm {
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
 				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				dao.inserir(usuario);
+				System.out.println(usuario.toString());
+				
+				this.dao.findAll();
+				
+				this.dao.save(usuario);
+				
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
@@ -114,21 +118,8 @@ public class CadastroUsuarioForm {
 		nascimento.setPlaceholder("Nascimento");
 		nascimento.setLocale(new Locale("br"));
 		
-		nascimento.setI18n(
-		        new DatePickerI18n()
-		        .setWeek("semana").setCalendar("Calendário")
-		                .setClear("Limpar").setToday("Hoje")
-		                .setCancel("cancelar").setFirstDayOfWeek(1)
-		                .setMonthNames(Arrays.asList("Janeiro", "Fevereiro",
-		                        "Março", "Abril", "Maio", "Junho",
-		                        "Julho", "Agosto", "Setembro", "Outubro",
-		                        "Novembro", "Dezembro")).setWeekdays(
-		                Arrays.asList("Domingo", "Segunda-feira", "Terça-feira",
-		                        "Quarta-feira", "Quinta-feira", "Sexta-feira",
-		                        "Sábado")).setWeekdaysShort(
-		                Arrays.asList("dom", "seg", "ter", "qua", "qui", "sex",
-		                        "sab")));
-		
+		nascimento.setI18n(new DataPickerPt().dataPt());
+		        
 		salvar.setThemeName("primary");
 		limpar.setThemeName("secondary");
 	}

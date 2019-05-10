@@ -1,5 +1,6 @@
 package br.edu.unoesc.views;
 
+
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

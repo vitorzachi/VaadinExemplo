@@ -10,14 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity 
 @Table(name = "Usuario")
-@NamedQueries({ @NamedQuery(name = Usuario.listarTodos, query = "select u from Usuario u") })
 public class Usuario {
 	
 	@Id
@@ -33,8 +30,6 @@ public class Usuario {
 			fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 			private Set<Safra> safras = new HashSet<Safra>();
 	
-	public static final String listarTodos = "buscarUsuario";
-
 	public Usuario() {
 
 	}
