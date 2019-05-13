@@ -31,7 +31,7 @@ public class CadastroUsuarioForm {
 	
 	
 	@Autowired
-	private UsuarioDao dao; 
+	private UsuarioDao usuarioDao; 
 	
 
 	private Div d = new Div();
@@ -68,7 +68,7 @@ public class CadastroUsuarioForm {
 				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				System.out.println(usuario.toString());
 				
-				this.dao.saveAndFlush(usuario);
+				this.usuarioDao.saveAndFlush(usuario);
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
