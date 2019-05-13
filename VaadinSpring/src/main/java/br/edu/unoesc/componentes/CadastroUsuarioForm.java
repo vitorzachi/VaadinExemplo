@@ -6,7 +6,6 @@ import java.util.Locale;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -18,12 +17,17 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 import br.edu.unoesc.dao.UsuarioDao;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
 
+@SpringComponent
+@UIScope
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuarioForm {
 	
@@ -40,7 +44,7 @@ public class CadastroUsuarioForm {
 	private DatePicker nascimento = new DatePicker();
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
-
+	private Binder<Usuario> binder = new Binder<Usuario>();
 
 	public Div formulario() {
 		
@@ -61,6 +65,8 @@ public class CadastroUsuarioForm {
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
 				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				
+				binder.bindInstanceFields(this);
 				System.out.println(usuario.toString());
 				
 				this.dao.save(usuario);
