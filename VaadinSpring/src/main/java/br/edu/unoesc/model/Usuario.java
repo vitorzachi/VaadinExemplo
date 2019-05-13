@@ -35,7 +35,7 @@ public class Usuario {
 	}
 
 	public Usuario(Long codigo, String nome, String sobrenome, String email, String senha, Date dataNascimento,
-			Set<Safra> safras) {
+			Set<Safra> safras){ 
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
@@ -105,7 +105,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [codigo=" + codigo + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
-				+ ", senha=" + senha + ", dataNascimento=" + dataNascimento + ", safras=" + safras + "]";
+				+ ", senha=" + senha + ", dataNascimento=" + dataNascimento + ", safras=" + safras +"]";
 	}
 	
 	

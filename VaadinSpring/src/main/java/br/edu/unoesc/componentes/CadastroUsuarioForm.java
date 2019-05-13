@@ -4,8 +4,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -17,22 +17,22 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
 
 import br.edu.unoesc.dao.UsuarioDao;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
 
+@Component
 @SpringComponent
-@UIScope
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuarioForm {
 	
+	
 	@Autowired
 	private UsuarioDao dao; 
+	
 
 	private Div d = new Div();
 	private FormLayout form = new FormLayout();
@@ -41,10 +41,10 @@ public class CadastroUsuarioForm {
 	private EmailField email = new EmailField();
 	private PasswordField senha = new PasswordField();
 	private PasswordField confirmacaoSenha = new PasswordField();
-	private DatePicker nascimento = new DatePicker();
+	private DatePicker dataNascimento = new DatePicker();
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
-	private Binder<Usuario> binder = new Binder<Usuario>();
+
 
 	public Div formulario() {
 		
@@ -57,6 +57,7 @@ public class CadastroUsuarioForm {
 		actions.setSpacing(true);
 		actions.add(salvar, limpar);
 		
+		
 		salvar.addClickListener(e ->{
 			if(senha.isEmpty() || senha.getValue().contentEquals(confirmacaoSenha.getValue())) {
 				Usuario usuario = new Usuario();
@@ -64,13 +65,10 @@ public class CadastroUsuarioForm {
 				usuario.setSobrenome(sobrenome.getValue());
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
-				usuario.setDataNascimento(Date.from(nascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				
-				binder.bindInstanceFields(this);
+				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				System.out.println(usuario.toString());
 				
-				this.dao.save(usuario);
-				
+				this.dao.saveAndFlush(usuario);
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
@@ -94,7 +92,7 @@ public class CadastroUsuarioForm {
 		email.clear();
 		senha.clear();
 		confirmacaoSenha.clear();
-		nascimento.clear();
+		dataNascimento.clear();
 	}
 	
 	private void camposObrigatorios() {
@@ -104,7 +102,7 @@ public class CadastroUsuarioForm {
 		email.setRequiredIndicatorVisible(true);
 		senha.setRequiredIndicatorVisible(true);
 		confirmacaoSenha.setRequiredIndicatorVisible(true);
-		nascimento.setRequiredIndicatorVisible(true);
+		dataNascimento.setRequiredIndicatorVisible(true);
 	}
 	
 	private void criandoEstrutura() {
@@ -119,10 +117,10 @@ public class CadastroUsuarioForm {
 		senha.setValueChangeMode(ValueChangeMode.EAGER);
 		confirmacaoSenha.setPlaceholder("Confirmação da senha");
 		confirmacaoSenha.setValueChangeMode(ValueChangeMode.EAGER);
-		nascimento.setPlaceholder("Nascimento");
-		nascimento.setLocale(new Locale("br"));
+		dataNascimento.setPlaceholder("Nascimento");
+		dataNascimento.setLocale(new Locale("br"));
 		
-		nascimento.setI18n(new DataPickerPt().dataPt());
+		dataNascimento.setI18n(new DataPickerPt().dataPt());
 		        
 		salvar.setThemeName("primary");
 		limpar.setThemeName("secondary");
@@ -134,8 +132,9 @@ public class CadastroUsuarioForm {
 		form.addFormItem(nome, "Nome: ");
 		form.addFormItem(sobrenome, "Sobrenome: ");		
 		form.addFormItem(email, "E-mail: ");
-		form.addFormItem(nascimento, "Data de Nascimento");
+		form.addFormItem(dataNascimento, "Data de Nascimento");
 		form.addFormItem(senha, "Senha: ");
 		form.addFormItem(confirmacaoSenha, "Confirme sua senha: ");
 	}
+	
 }
