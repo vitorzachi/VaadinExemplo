@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -24,15 +24,13 @@ import br.edu.unoesc.dao.UsuarioDao;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
 
-@Component
-@SpringComponent
+
+@Controller
 @HtmlImport("frontend://styles/tema.html")
 public class CadastroUsuarioForm {
 	
-	
 	@Autowired
 	private UsuarioDao usuarioDao; 
-	
 
 	private Div d = new Div();
 	private FormLayout form = new FormLayout();

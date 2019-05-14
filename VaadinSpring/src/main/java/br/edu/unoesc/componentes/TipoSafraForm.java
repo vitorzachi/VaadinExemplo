@@ -1,7 +1,10 @@
 package br.edu.unoesc.componentes;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
@@ -12,16 +15,19 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
+import br.edu.unoesc.dao.TipoSafraDao;
 import br.edu.unoesc.model.TipoSafra;
 
+@Controller
+@SpringBootApplication
 @HtmlImport("frontend://styles/tema.html")
 public class TipoSafraForm {
 	
+	@Autowired
+	private TipoSafraDao tipoSafraDao;
+	
 	private boolean editando = false;
-	
-	private List<TipoSafra> tipo = new ArrayList<>();
 	private TextField nome = new TextField();
-	
 	private Div d = new Div();
 	private FormLayout form = new FormLayout();
 	private Button salvar = new Button("Salvar");
@@ -47,8 +53,8 @@ public class TipoSafraForm {
 				TipoSafra safra = new TipoSafra();
 				safra.setCodigo((long)1);
 				safra.setNome(nome.getValue());
-				tipo.add(safra);
-				grid.setItems(tipo);
+				tipoSafraDao.saveAndFlush(safra);
+				grid.setItems(tipoSafraDao.findAll());
 			}
 			editando = false;
 		});
@@ -85,7 +91,7 @@ public class TipoSafraForm {
 	}
 	
 	private void tabela() {
-		grid.setItems(tipo);
+		grid.setItems(tipoSafraDao.findAll());
 		grid.addColumn(TipoSafra::getCodigo).setHeader("Codigo");
 		grid.addColumn(TipoSafra::getNome).setHeader("Nome");
 		

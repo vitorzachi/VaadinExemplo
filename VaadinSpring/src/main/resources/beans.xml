@@ -4,6 +4,14 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans 
 							http://ww.springframework.org/schema/beans/spring-beans.xsd">
 		
+<bean id = "usuarioDao" class= "br.edu.unoesc.dao.UsuarioDao">
+	<property name= "usuarioDao" ref="usuarioDao"  />
+</bean>	
+
+<bean id = "tipoSafraDao" class= "br.edu.unoesc.dao.TipoSafraDao">
+	<property name= "tipoSafraDao" ref="tipoSafraDao"  />
+</bean>	
+
 <bean id = "usuarioDao" class= "br.edu.unoesc.dao.UsuarioDao"></bean>	
 	
 </beans>
