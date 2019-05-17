@@ -7,6 +7,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import br.edu.unoesc.componentes.CadastroUsuarioForm;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Gestão de Safra")
 @Route("cadastroUsuario")
@@ -14,9 +15,15 @@ import br.edu.unoesc.componentes.CadastroUsuarioForm;
 public class CadastroUsuario extends Div{
 
 	private static final long serialVersionUID = -5497533232441585612L;
+	private CadastroUsuarioForm cadastroUsuarioForm;
+
+	@Autowired
+	public  CadastroUsuario(CadastroUsuarioForm cadastroUsuarioForm){
+		this.cadastroUsuarioForm= cadastroUsuarioForm;
+	}
 
 	public CadastroUsuario(){
-		add(new H2("Cadastro de Usuário"), new CadastroUsuarioForm().formulario());
+		add(new H2("Cadastro de Usuário"), cadastroUsuarioForm.formulario());
 		
 	}	
 }

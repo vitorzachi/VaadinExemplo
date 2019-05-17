@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.unoesc.model.Usuario;
 
-@Service
+
 public interface UsuarioDao extends JpaRepository<Usuario, Long>{
 
 	void findByNome(String nome);

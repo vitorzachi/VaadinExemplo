@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.unoesc.model.TipoSafra;
 
-@Service
+
 public interface TipoSafraDao extends JpaRepository<TipoSafra, Long> {
 	
 
