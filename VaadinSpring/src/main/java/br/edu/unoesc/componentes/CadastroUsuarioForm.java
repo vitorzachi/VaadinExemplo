@@ -4,7 +4,11 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 
+import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import com.vaadin.flow.component.button.Button;
@@ -23,14 +27,13 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import br.edu.unoesc.dao.UsuarioDao;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
+import org.springframework.web.servlet.View;
 
-
-@Controller
-@HtmlImport("frontend://styles/tema.html")
-public class CadastroUsuarioForm {
+@UIScope
+@Component
+public class CadastroUsuarioForm  {
 	
-	@Autowired
-	private UsuarioDao usuarioDao; 
+	private UsuarioDao usuarioDao;
 
 	private Div d = new Div();
 	private FormLayout form = new FormLayout();
@@ -42,6 +45,11 @@ public class CadastroUsuarioForm {
 	private DatePicker dataNascimento = new DatePicker();
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
+
+@Autowired
+	public CadastroUsuarioForm(UsuarioDao usuarioDao){
+		this.usuarioDao = usuarioDao;
+	}
 
 
 	public Div formulario() {
@@ -63,7 +71,7 @@ public class CadastroUsuarioForm {
 				usuario.setSobrenome(sobrenome.getValue());
 				usuario.setEmail(email.getValue());
 				usuario.setSenha(senha.getValue());
-				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				System.out.println(usuario.toString());
 				
 				this.usuarioDao.saveAndFlush(usuario);
