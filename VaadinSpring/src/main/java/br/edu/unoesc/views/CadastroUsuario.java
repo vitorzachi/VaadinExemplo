@@ -14,7 +14,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.annotation.UIScope;
 
 import br.edu.unoesc.componentes.DialogMensagem;
 import br.edu.unoesc.dao.UsuarioDao;
@@ -26,9 +25,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 @PageTitle("Gestão de Safra")
@@ -50,8 +47,9 @@ public class CadastroUsuario extends Div{
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
 	
-	@Autowired(required = true)
+	@Autowired
 	private UsuarioDao usuarioDao;
+	
 
 	public CadastroUsuario(){
 		
