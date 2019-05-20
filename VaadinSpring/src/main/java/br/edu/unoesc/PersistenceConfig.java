@@ -1,4 +1,4 @@
-package br.edu.unoesc.config;
+package br.edu.unoesc;
 
 import java.util.Properties;
 
