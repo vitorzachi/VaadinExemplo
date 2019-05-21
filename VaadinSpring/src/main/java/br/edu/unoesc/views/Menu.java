@@ -34,6 +34,7 @@ public class Menu extends VerticalLayout{
 	private Div pgAddSafra = new AdicionarSafra().pagina();
 	private Div pgTipoSafra = new TipoSafra().pagina();
 	private Div pgProcediemento = new ProcedimentoSafra().pagina();
+	private Div pgFinalizar = new FinalizarSafra().pagina();
 	
 	public Menu() {
 		
@@ -42,6 +43,7 @@ public class Menu extends VerticalLayout{
 		paginaAddSafra();
 		tipoSafra();
 		procedimento();
+		finalizar();
 		
 		// editando tabs e conteudo
 		tabs.setWidth("100%");
@@ -54,6 +56,7 @@ public class Menu extends VerticalLayout{
 		    pgAddSafra.setVisible(false);
 		    pgTipoSafra.setVisible(false);
 		    pgProcediemento.setVisible(false);
+		    pgFinalizar.setVisible(false);
 		    
 		    Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
 		    selectedPage.setVisible(true);
@@ -69,7 +72,9 @@ public class Menu extends VerticalLayout{
 
 	}
 	
+
 	// criando tabs mapeando tab com conteudo e adicionando conteudo
+
 	private void paginaPrincipal() {
 		Tab principal = new Tab("Página principal");
 		tabsToPages.put(principal, pgPrincipal);
@@ -99,6 +104,14 @@ public class Menu extends VerticalLayout{
 		tabsToPages.put(procedimento, pgProcediemento);
 		tabs.add(procedimento);
 		content.add(pgProcediemento);
+	}
+	
+	private void finalizar() {
+		Tab finalizar = new Tab("Colher safra");
+		pgFinalizar.setVisible(false);
+		tabsToPages.put(finalizar, pgFinalizar);
+		tabs.add(finalizar);
+		content.add(pgFinalizar);
 	}
 	
 //	public Menu() {

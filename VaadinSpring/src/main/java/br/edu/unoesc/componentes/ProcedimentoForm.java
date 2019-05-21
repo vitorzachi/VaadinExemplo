@@ -1,11 +1,9 @@
 package br.edu.unoesc.componentes;
 
-import java.util.Arrays;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.datepicker.DatePicker.DatePickerI18n;
 import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
@@ -15,6 +13,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
+import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Safra;
 
 @HtmlImport("frontend://styles/tema.html")
@@ -67,15 +66,7 @@ public class ProcedimentoForm {
 		tipo.setValueChangeMode(ValueChangeMode.EAGER);
 		
 		dataP.setPlaceholder("Data do procedimento");
-		dataP.setI18n(
-		        new DatePickerI18n().setWeek("semana").setCalendar("Calendário")
-		                .setClear("Limpar").setToday("Hoje").setCancel("cancelar").setFirstDayOfWeek(1)
-		                .setMonthNames(Arrays.asList("Janeiro", "Fevereiro","Março", "Abril", "Maio", 
-		                		 "Junho", "Julho", "Agosto", "Setembro", "Outubro","Novembro", "Dezembro"))
-		                .setWeekdays(Arrays.asList("Domingo", "Segunda-feira", "Terça-feira",
-		                        "Quarta-feira", "Quinta-feira", "Sexta-feira",
-		                        "Sábado"))
-		                .setWeekdaysShort(Arrays.asList("dom", "seg", "ter", "qua", "qui", "sex","sab")));
+		dataP.setI18n(new DataPickerPt().dataPt());
 		
 		quantidade.setPlaceholder("Qtd de produto aplicado");
 		quantidade.setValueChangeMode(ValueChangeMode.EAGER);

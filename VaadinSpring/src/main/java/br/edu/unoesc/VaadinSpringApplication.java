@@ -2,13 +2,24 @@ package br.edu.unoesc;
 
 import com.vaadin.flow.spring.SpringServlet;
 import com.vaadin.flow.spring.annotation.EnableVaadin;
+
+import br.edu.unoesc.dao.UsuarioDao;
+import br.edu.unoesc.model.Safra;
+import br.edu.unoesc.model.Usuario;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -36,6 +47,8 @@ public class VaadinSpringApplication extends SpringBootServletInitializer {
 		registration.setLoadOnStartup(1);
 		registration.addMapping("/*");
 	}
-
+	
+	
+		
 
 }
