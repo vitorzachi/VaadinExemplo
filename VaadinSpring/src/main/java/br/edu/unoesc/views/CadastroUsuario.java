@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -47,11 +48,17 @@ public class CadastroUsuario extends Div{
 	private Button salvar = new Button("Salvar");
 	private Button limpar = new Button("Limpar todos os campos");
 	
-	@Autowired
-	private UsuarioDao usuarioDao;
+	private final UsuarioDao usuarioDao;
 	
+	Binder<Usuario> binder = new Binder<>(Usuario.class);
+	
+	private Usuario usuario;
 
-	public CadastroUsuario(){
+	
+	@Autowired
+	public CadastroUsuario(UsuarioDao usuarioDao){
+		this.usuarioDao = usuarioDao;
+		
 		
 		add(new H2("Cadastro de Usuário"));
 		
@@ -81,6 +88,9 @@ public class CadastroUsuario extends Div{
 		form.addFormItem(senha, "Senha: ");
 		form.addFormItem(confirmacaoSenha, "Confirme sua senha: ");
 		
+		// bind usando convensao de nome
+		binder.bindInstanceFields(this);
+		
 		// campos required
 		nome.setRequiredIndicatorVisible(true);
 		sobrenome.setRequiredIndicatorVisible(true);
@@ -96,15 +106,15 @@ public class CadastroUsuario extends Div{
 		
 		salvar.addClickListener(e ->{
 			if(senha.isEmpty() || senha.getValue().contentEquals(confirmacaoSenha.getValue())) {
-				Usuario usuario = new Usuario();
-				usuario.setNome(nome.getValue());
-				usuario.setSobrenome(sobrenome.getValue());
-				usuario.setEmail(email.getValue());
-				usuario.setSenha(senha.getValue());
-				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				System.out.println(usuario.toString());
+//				Usuario usuario = new Usuario();
+//				usuario.setNome(nome.getValue());
+//				usuario.setSobrenome(sobrenome.getValue());
+//				usuario.setEmail(email.getValue());
+//				usuario.setSenha(senha.getValue());
+//				usuario.setDataNascimento(Date.from(dataNascimento.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+//				System.out.println(usuario.toString());
 				
-				this.usuarioDao.saveAndFlush(usuario);
+				salvar();
 				
 				salvar.getUI().ifPresent(ui -> ui.navigate(""));
 				
@@ -127,5 +137,9 @@ public class CadastroUsuario extends Div{
 		
 		
 	}	
+	
+	void salvar() {
+		usuarioDao.save(usuario);
+	}
 	
 }
