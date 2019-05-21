@@ -18,6 +18,7 @@ import com.vaadin.flow.router.Route;
 
 import br.edu.unoesc.componentes.DialogMensagem;
 import br.edu.unoesc.dao.UsuarioDao;
+import br.edu.unoesc.dao.UsuarioRepository;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
 
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 
@@ -56,7 +58,7 @@ public class CadastroUsuario extends Div{
 
 	
 	@Autowired
-	public CadastroUsuario(UsuarioDao usuarioDao){
+	public CadastroUsuario(@Qualifier("dao") UsuarioRepository usuarioDao){
 		this.usuarioDao = usuarioDao;
 		
 		
