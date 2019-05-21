@@ -18,23 +18,18 @@ import com.vaadin.flow.router.Route;
 
 import br.edu.unoesc.componentes.DialogMensagem;
 import br.edu.unoesc.dao.UsuarioDao;
-import br.edu.unoesc.dao.UsuarioRepository;
 import br.edu.unoesc.idioma.DataPickerPt;
 import br.edu.unoesc.model.Usuario;
 
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 
 @PageTitle("Gestão de Safra")
 @Route("cadastroUsuario")
 @HtmlImport("frontend://styles/tema.html")
-@Controller
 @ComponentScan(basePackages = {"br.edu.unoesc.dao"} )
 public class CadastroUsuario extends Div{
 
@@ -58,7 +53,7 @@ public class CadastroUsuario extends Div{
 
 	
 	@Autowired
-	public CadastroUsuario(@Qualifier("dao") UsuarioRepository usuarioDao){
+	public CadastroUsuario(UsuarioDao usuarioDao){
 		this.usuarioDao = usuarioDao;
 		
 		
